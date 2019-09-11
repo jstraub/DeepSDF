@@ -78,8 +78,11 @@ def convert_sdf_samples_to_ply(
 
     numpy_3d_sdf_tensor = pytorch_3d_sdf_tensor.numpy()
 
+    print(numpy_3d_sdf_tensor.min(), numpy_3d_sdf_tensor.max())
+    print(numpy_3d_sdf_tensor.mean())
+
     verts, faces, normals, values = skimage.measure.marching_cubes_lewiner(
-        numpy_3d_sdf_tensor, level=0.0, spacing=[voxel_size] * 3
+        numpy_3d_sdf_tensor, level=0.5, spacing=[voxel_size] * 3
     )
 
     # transform from voxel coordinates to camera coordinates

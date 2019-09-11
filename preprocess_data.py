@@ -56,6 +56,7 @@ def process_mesh(mesh_filepath, target_filepath, executable, additional_args):
         "-o",
         target_filepath,
     ] + additional_args
+    logging.info(" ".join(command))                                                                                                       
 
     subproc = subprocess.Popen(command, stdout=subprocess.DEVNULL)
     subproc.wait()
@@ -155,7 +156,7 @@ if __name__ == "__main__":
 
     deep_sdf.configure_logging(args)
 
-    additional_general_args = []
+    additional_general_args = ["-s", "1000000"]
 
     if args.surface_sampling:
         executable = "bin/SampleVisibleMeshSurface"
@@ -245,6 +246,7 @@ if __name__ == "__main__":
                     )
                     specific_args = ["-n", normalization_param_filename]
 
+                print(shape_dir, " and name  ", mesh_filename)
                 meshes_targets_and_specific_args.append(
                     (
                         os.path.join(shape_dir, mesh_filename),

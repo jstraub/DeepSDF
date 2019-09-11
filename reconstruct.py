@@ -240,12 +240,12 @@ if __name__ == "__main__":
                 lr=5e-3,
                 l2reg=True,
             )
-            logging.debug("reconstruct time: {}".format(time.time() - start))
+            logging.info("reconstruct time: {}".format(time.time() - start))
             err_sum += err
-            logging.debug("current_error avg: {}".format((err_sum / (ii + 1))))
+            logging.info("current_error avg: {}".format((err_sum / (ii + 1))))
             logging.debug(ii)
 
-            logging.debug("latent: {}".format(latent.detach().cpu().numpy()))
+            logging.info("latent: {}".format(latent.detach().cpu().numpy()))
 
             decoder.eval()
 
@@ -253,6 +253,7 @@ if __name__ == "__main__":
                 os.makedirs(os.path.dirname(mesh_filename))
 
             if not save_latvec_only:
+                logging.info("creating mesh")
                 start = time.time()
                 with torch.no_grad():
                     deep_sdf.mesh.create_mesh(
